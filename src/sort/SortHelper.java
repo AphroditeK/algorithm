@@ -11,8 +11,8 @@ public class SortHelper {
 	 * @param maxR 随机数最大值
 	 * @return int[] 数组
 	 */
-	public static int[] autoArr(int n,int minL,int maxR){
-		int[] arr = new int[n];
+	public static Integer[] autoArr(Integer n,Integer minL,Integer maxR){
+		Integer[] arr = new Integer[n];
 		Random r = new Random();
 		if(n>0 && maxR>=minL){
 			for(int i=0;i<n;i++){
@@ -22,8 +22,8 @@ public class SortHelper {
 		return arr;
 	}
 	
-	public static double[] autoArr(int n,double minL,double maxR){
-		double[] arr = new double[n];
+	public static Double[] autoArr(Integer n,Double minL,Double maxR){
+		Double[] arr = new Double[n];
 		Random r = new Random();
 		if(n>0 && maxR>=minL){
 			for(int i=0;i<n;i++){
@@ -32,6 +32,5 @@ public class SortHelper {
 		}
 		return arr;
 	}
-	
 	
 }
