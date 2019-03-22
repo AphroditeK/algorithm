@@ -11,7 +11,8 @@ public class Timer {
 	 * @param paramsType 调用方法的参数类型
 	 * @param params 调用方法要求的参数，按顺序填写
 	 * @return
-	 * know more:请使用基本数据类型的封装类型进行使用数据
+	 * know more:调用方法的参数类型问题
+	 * 请使用基本数据类型的封装类型进行方法参数定义
 	 * int类型-Integer
 	 * double类型-Double...
 	 */
