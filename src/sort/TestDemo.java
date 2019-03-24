@@ -3,7 +3,7 @@ package sort;
 import org.junit.Test;
 
 import sort.generateSort.ShellSort;
-import sort.mergeSort.MergeSort1;
+import sort.higherSort.MergeSort1;
 import util.Timer;
 
 public class TestDemo {
@@ -60,16 +60,18 @@ public class TestDemo {
 
 	@Test
 	public void testMerge(){
-		int n = 20;
+		int n = 10;
 		Integer[] arr = SortHelper.autoArr(n, 0, n);
 		SortHelper.printResult(arr);
 		new MergeSort1().doSort(arr, n);
 		SortHelper.printResult(arr);
 	}
 
+	
+	
 	public static void main(String[] args) {
 		int d = 11;
-		d = d/2;
+		d = d>>1;
 		System.out.println(d);
 	}
 	
