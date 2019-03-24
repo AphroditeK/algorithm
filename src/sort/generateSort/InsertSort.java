@@ -1,4 +1,4 @@
-package sort;
+package sort.generateSort;
 
 /**
  * 插入排序是指不断调整序列，使得调整到的位置前面都是有序的

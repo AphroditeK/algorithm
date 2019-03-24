@@ -63,4 +63,22 @@ public class SortHelper {
 		return arr;
 	}
 	
+	/**
+	 * 利用一个有序序列，只打乱部分的位置形成无序序列
+	 * 最终得到一个近乎有序的序列
+	 * @param n 序列长度
+	 * @param changeTimes 打乱次数
+	 * @return 近乎有序的序列
+	 */
+	public static Integer[] autoNearlyOrderedArr(Integer n,Integer changeTimes){
+		Integer[] arr = new Integer[n];
+		for(int i = 0;i<n;i++){
+			arr[i] = i;
+		}
+		Random r = new Random();
+		for(int j=0;j<changeTimes;j++){
+			arr[r.nextInt(n)] = arr[r.nextInt(n)];
+		}
+		return arr;
+	}
 }
