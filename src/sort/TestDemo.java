@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import sort.generateSort.ShellSort;
 import sort.higherSort.MergeSort1;
+import sort.higherSort.MergeSort2;
+import sort.higherSort.QuickSort1;
+import sort.higherSort.QuickSort2;
 import util.Timer;
 
 public class TestDemo {
@@ -66,8 +69,62 @@ public class TestDemo {
 		new MergeSort1().doSort(arr, n);
 		SortHelper.printResult(arr);
 	}
-
 	
+	@Test
+	public void testMerge2(){
+		int n = 1000100;
+		Integer[] arr1 = SortHelper.autoArr(n, 0, n);
+//		SortHelper.printResult(arr);
+//		new MergeSort2().doSort(arr, n);
+//		SortHelper.printResult(arr);
+		
+		Integer[] arr2 = SortHelper.copyArr(arr1, n);
+		System.out.println(arr1);
+		System.out.println(arr2);
+		Long time1 = Timer.timeMillisTimer(sort.higherSort.MergeSort1.class, "doSort", arr1,n);
+		Long time2 = Timer.timeMillisTimer(sort.higherSort.MergeSort2.class, "doSort", arr2,n);
+		System.out.println(time1);
+		System.out.println(time2);
+	}
+	
+	@Test
+	public void testQuick(){
+		int n = 1000000;
+//		Integer[] arr1 = SortHelper.autoNearlyOrderedArr(n, 10);
+		//数列存在很多等值的元素
+		Integer[] arr1 = SortHelper.autoArr(n, 0,10);
+//		SortHelper.printResult(arr);
+//		new QuickSort().doSort(arr, n);
+//		SortHelper.printResult(arr);
+		
+		Integer[] arr2 = SortHelper.copyArr(arr1, n);
+		System.out.println(arr1);
+		System.out.println(arr2);
+		Long time1 = Timer.timeMillisTimer(sort.higherSort.MergeSort1.class, "doSort", arr1,n);
+		Long time2 = Timer.timeMillisTimer(sort.higherSort.QuickSort1.class, "doSort", arr2,n);
+		System.out.println(time1);
+		System.out.println(time2);
+	}
+	
+	@Test
+	public void testQuick2(){
+		int n = 200000;
+//		Integer[] arr1 = SortHelper.autoArr(n, 0,3);
+//		SortHelper.printResult(arr1);
+//		new QuickSort2().doSort(arr1, n);
+//		SortHelper.printResult(arr1);
+		
+		
+//		Integer[] arr1 = SortHelper.autoNearlyOrderedArr(n, 10);
+		Integer[] arr1 = SortHelper.autoArr(n, 0,10);
+		Integer[] arr2 = SortHelper.copyArr(arr1, n);
+		System.out.println(arr1);
+		System.out.println(arr2);
+		Long time1 = Timer.timeMillisTimer(sort.higherSort.MergeSort1.class, "doSort", arr1,n);
+		Long time2 = Timer.timeMillisTimer(sort.higherSort.QuickSort2.class, "doSort", arr2,n);
+		System.out.println(time1);
+		System.out.println(time2);
+	}
 	
 	public static void main(String[] args) {
 		int d = 11;
