@@ -7,6 +7,7 @@ import sort.higherSort.MergeSort1;
 import sort.higherSort.MergeSort2;
 import sort.higherSort.QuickSort1;
 import sort.higherSort.QuickSort2;
+import sort.higherSort.QuickSort3;
 import util.Timer;
 
 public class TestDemo {
@@ -108,15 +109,15 @@ public class TestDemo {
 	
 	@Test
 	public void testQuick2(){
-		int n = 200000;
-//		Integer[] arr1 = SortHelper.autoArr(n, 0,3);
+		int n = 100000;
+//		Integer[] arr1 = SortHelper.autoArr(n, 0,n);
 //		SortHelper.printResult(arr1);
 //		new QuickSort2().doSort(arr1, n);
 //		SortHelper.printResult(arr1);
 		
 		
-//		Integer[] arr1 = SortHelper.autoNearlyOrderedArr(n, 10);
-		Integer[] arr1 = SortHelper.autoArr(n, 0,10);
+		Integer[] arr1 = SortHelper.autoNearlyOrderedArr(n, 10);
+//		Integer[] arr1 = SortHelper.autoArr(n, 0,10);
 		Integer[] arr2 = SortHelper.copyArr(arr1, n);
 		System.out.println(arr1);
 		System.out.println(arr2);
@@ -124,6 +125,15 @@ public class TestDemo {
 		Long time2 = Timer.timeMillisTimer(sort.higherSort.QuickSort2.class, "doSort", arr2,n);
 		System.out.println(time1);
 		System.out.println(time2);
+	}
+	
+	@Test
+	public void testQuick3(){
+		int n = 10;
+		Integer[] arr1 = SortHelper.autoNearlyOrderedArr(n, 10);
+		SortHelper.printResult(arr1);
+		new QuickSort3().doSort(arr1, n);
+		SortHelper.printResult(arr1);
 	}
 	
 	public static void main(String[] args) {

@@ -29,7 +29,7 @@ public class SortHelper {
 	
 	public static Double[] autoArr(Integer n,Double minL,Double maxR){
 		Double[] arr = new Double[n];
-		Random r = new Random();
+		Random r = new Random(System.currentTimeMillis());
 		if(n>0 && maxR>=minL){
 			for(int i=0;i<n;i++){
 				arr[i] = r.nextDouble()+minL;
