@@ -8,6 +8,7 @@ import sort.higherSort.MergeSort2;
 import sort.higherSort.QuickSort1;
 import sort.higherSort.QuickSort2;
 import sort.higherSort.QuickSort3;
+import util.SortHelper;
 import util.Timer;
 
 public class TestDemo {
@@ -138,7 +139,11 @@ public class TestDemo {
 	
 	public static void main(String[] args) {
 		int d = 11;
-		d = d>>1;
+		int a = d >> 1 << 1;
+		System.out.println(1>>1);
+		System.out.println(1<<1+1);
+		System.out.println((1<<1)+1);
+		System.out.println(a);
 		System.out.println(d);
 	}
 	

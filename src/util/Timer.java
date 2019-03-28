@@ -8,7 +8,6 @@ public class Timer {
 	 * 计算方法调用所需时间（毫秒级）
 	 * @param clazz 要方法所在类的全限定名
 	 * @param methodName 要调用的方法名
-	 * @param paramsType 调用方法的参数类型
 	 * @param params 调用方法要求的参数，按顺序填写
 	 * @return
 	 * know more:调用方法的参数类型问题

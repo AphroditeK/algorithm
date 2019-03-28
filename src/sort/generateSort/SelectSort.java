@@ -3,7 +3,7 @@ package sort.generateSort;
 
 import org.junit.Test;
 
-import sort.SortHelper;
+import util.SortHelper;
 
 /**
  * 选择排序是O(n^2)级别的算法，其实就是暴力排序
