@@ -67,7 +67,7 @@ public class IndexMaxHeap<T> {
 			//扩容index
 		}
 		this.data[i] = t;
-		this.indexes[i] = i;
+		this.indexes[i-1] = i;
 		__shiftUp(i);
 	}
 
