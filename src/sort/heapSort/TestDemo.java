@@ -87,15 +87,29 @@ public class TestDemo {
 		};
 		IndexMaxHeap<Integer> heap = new IndexMaxHeap<Integer>(compatator);
 		heap.insert(10);
-		heap.insert(8);
-		heap.insert(9);
-		heap.insert(3);
-		heap.insert(6);
+		heap.insert(81);
 		heap.insert(96);
+		heap.insert(38);
+		heap.insert(67);
+		heap.insert(96);
+		heap.insert(88);
+		heap.insert(99);
+		heap.insert(53);
 		System.out.println(heap);
 		for (int i : heap.getIndexes()) {
 			System.out.print(i+" ");
 		}
+		System.out.println(heap.extractMax());
+		System.out.println(heap.extractMax());
+		System.out.println(heap.extractMax());
+		System.out.println(heap.extractMax());
+		heap.insert(102);
+		System.out.println(heap.extractMax());
+		System.out.println(heap.extractMax());
+		System.out.println(heap.extractMax());
+		System.out.println(heap);
+		System.out.println("data是否为空");
+		
 	}
 	
 }

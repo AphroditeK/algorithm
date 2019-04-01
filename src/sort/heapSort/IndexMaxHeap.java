@@ -67,7 +67,7 @@ public class IndexMaxHeap<T> {
 			//扩容index
 		}
 		this.data[i] = t;
-		this.indexes[i-1] = i;
+		this.indexes[i] = i;
 		__shiftUp(i);
 	}
 
@@ -89,13 +89,34 @@ public class IndexMaxHeap<T> {
 	
 	public T extractMax(){
 		T max = data[indexes[1]];
-		
-		
-		
-		
+		data[indexes[1]] = data[indexes[count]];
+		indexes[1] = indexes[count];
+		count -=1;
+		shiftDown(1);
 		return max;
 	}
 	
+	private void shiftDown(int i) {
+		
+		while((i<<1) <= count){
+			int k = i<<1;
+			if(k+1 <= count){
+				int r1 = comparator.compare(data[indexes[k]], data[indexes[k+1]]);
+				if(r1 < 0){
+					k += 1;
+				}
+			}
+			if( comparator.compare(data[indexes[i]], data[indexes[k]]) >= 0){
+				break;
+			}
+			int temp = indexes[i];
+			indexes[i] = indexes[k];
+			indexes[k] = temp;	
+			i = k;
+		}
+		
+	}
+
 	public int[] getIndexes() {
 		return indexes;
 	}
