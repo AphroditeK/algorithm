@@ -48,6 +48,10 @@ public class TestDemo {
 		tree.insert(9, "lk9");
 		System.out.println(".......");
 		System.out.println(tree.contain(11));
+		System.out.println(tree.search(11));
+		tree.preOrder();
+		tree.inOrder();
+		tree.postOrder();
 	}
 	
 }

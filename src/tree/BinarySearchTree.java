@@ -25,7 +25,7 @@ public class BinarySearchTree<K,V>{
 		}
 	}
 	
-	//二叉树的根节点，输的管理都是通过根节点往下进行的
+	//二叉树的根节点，树的管理都是通过根节点往下进行的
 	private Node<K,V> root;
 	private int count;
 	private Comparator<K> comparator;
@@ -49,6 +49,16 @@ public class BinarySearchTree<K,V>{
 		return count == 0;
 	}
 	
+	//使用后序遍历清空该树
+	public void destory(){
+		
+	}
+	
+	/**
+	 * 插入key-value结点，如果key已存在，则更新已存在结点
+	 * @param key
+	 * @param value
+	 */
 	public void insert( K key, V value ){
 		//维护二叉搜索树其实就是维护根节点，一切的结点都可以通过root往下寻找
 		//所以insert方法其实就是刷新一下root，使得新内容插入
@@ -56,17 +66,92 @@ public class BinarySearchTree<K,V>{
 		this.root = insert(this.root,key, value);
 	}
 	
+	/**
+	 * 判断树中是否含有相应key值的结点
+	 * @param key
+	 * @return
+	 */
 	public boolean contain(K key){
 		//多态调用内部方法判断
 		return contain( root, key);
 	}
 	
-	public V remove(K key){
-		Node<K,V> node = null;
-		
-		return node.value;
+	/**
+	 * 查找相应key的value值
+	 * @param key
+	 * @return
+	 */
+	public V search(K key){
+		//多态调用内部方法进行判断读取返回相应结点的值
+		return search( root, key);
 	}
 	
+	//前序遍历
+	public void preOrder(){
+		preOrder(root);
+		System.out.println();
+	}
+	
+	//中序遍历,由于二分搜索树左儿子小右儿子大的特点，中序遍历就相当于排序
+	public void inOrder(){
+		inOrder(root);
+		System.out.println();
+	}
+	
+	//后序遍历，利用此可以很好的清空二分搜索树
+	public void postOrder(){
+		postOrder(root);
+		System.out.println();
+	}
+	
+	private void postOrder(Node<K, V> node) {
+		if( node != null ){
+			postOrder(node.left);
+			postOrder(node.right);
+			System.out.print(node.key.toString() + " ");
+		}
+	}
+
+	private void inOrder(Node<K, V> node) {
+		if( node != null ){
+			inOrder(node.left);
+			System.out.print(node.key.toString() + " ");
+			inOrder(node.right);
+		}
+	}
+	
+	private void preOrder(Node<K, V> node) {
+		if( node != null ){
+			System.out.print(node.key.toString() + " ");
+			preOrder(node.left);
+			preOrder(node.right);
+		}
+	}
+	
+	
+
+	/**
+	 * 已node为当前根节点，遍历该二分搜索树，返回相应的key的value值
+	 * @param node
+	 * @param key
+	 * @return
+	 */
+	private V search(Node<K, V> node, K key) {
+		
+		if( node == null){
+			return null;
+		}
+		int r = comparator.compare(node.key, key);
+		if( r == 0){
+			return node.value;
+		}else if( r > 0 ){
+			return search(node.left, key);
+		}else{
+			return search(node.right, key);
+		}
+		
+	}
+
 	/**
 	 * 这里其实跟插入是差不多的，都是根据搜索树的规则从根节点往下寻找
 	 * @param node 每次判断的子树的根节点
