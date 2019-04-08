@@ -1,7 +1,6 @@
 package tree;
 
 import java.util.Comparator;
-
 import org.junit.Test;
 
 public class TestDemo {
@@ -46,12 +45,27 @@ public class TestDemo {
 		tree.insert(3, "lk3");
 		tree.insert(10, "lk10");
 		tree.insert(9, "lk9");
+		tree.insert(7, "lk7");
+		tree.insert(11, "lk11");
+		tree.insert(18, "lk18");
+		tree.insert(92, "lk92");
 		System.out.println(".......");
 		System.out.println(tree.contain(11));
 		System.out.println(tree.search(11));
+		System.out.println("前序遍历");
 		tree.preOrder();
+		System.out.println("中序遍历");
 		tree.inOrder();
+		System.out.println("后序序遍历");
 		tree.postOrder();
+		System.out.println("层序遍历");
+		tree.levelOrder();
+		System.out.println("移除最大值");
+		tree.removeMax();
+		tree.inOrder();
+		System.out.println("移除最小值");
+		tree.removeMin();
+		tree.inOrder();
 	}
 	
 }

@@ -1,6 +1,8 @@
 package tree;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * 二分查找树，一种数据结构类型，拥有高性能的数据查找
@@ -51,9 +53,21 @@ public class BinarySearchTree<K,V>{
 	
 	//使用后序遍历清空该树
 	public void destory(){
-		
+		//其实这里与C++有所不同，因为java对象都是引用，没有指针的概念
+		//所以并不用清空内容，只要堆中对应对象没有引用指向它的话，jvm会自动进行垃圾回收，不用主动操作
+		//所以这里可以直接让root=null,count=0,没了引用jvm会自动进行回收
+		destory(root);
 	}
 	
+	private void destory(BinarySearchTree<K, V>.Node<K, V> node) {
+		if( node != null ){
+			destory(node.left);
+			destory(node.right);
+			node = null;
+			this.count--;
+		}
+	}
+
 	/**
 	 * 插入key-value结点，如果key已存在，则更新已存在结点
 	 * @param key
@@ -83,7 +97,10 @@ public class BinarySearchTree<K,V>{
 	 */
 	public V search(K key){
 		//多态调用内部方法进行判断读取返回相应结点的值
-		return search( root, key);
+		if( search(root,key) != null ){
+			return search( root, key).value;
+		}
+		return null;
 	}
 	
 	//前序遍历
@@ -104,7 +121,87 @@ public class BinarySearchTree<K,V>{
 		System.out.println();
 	}
 	
-	private void postOrder(Node<K, V> node) {
+	//层序遍历,需要利用一个队列结构进行辅助遍历
+	public void levelOrder(){
+		//1.取出根节点放入队列中
+		//注意：这里使用的是java提供的队列，java仅仅提供了该接口，要实例化需要用到java链表
+		Queue<BinarySearchTree<K, V>.Node<K, V>> q = new LinkedList<>();
+		q.offer(root);
+		
+		//循环遍历队列达到层序遍历的效果
+		while( !q.isEmpty() ){
+			//2.从队列取出（遍历）
+			Node<K, V> node = q.poll();
+			System.out.print( node.key.toString() + " " );
+			//3.判断是否有儿子结点，有即再放入队列中
+			if( node.left != null ){
+				q.offer(node.left);
+			}
+			if( node.right != null ){
+				q.offer(node.right);
+			}
+		}
+		System.out.println();
+	}
+	
+	public void removeMin(){
+		//这里单从操作来说使用while循环的方式更好，不过使用递归的话还能重复利用函数
+		root = removeMin(root);
+	}
+	
+	
+
+	public void removeMax(){
+		//这里单从操作来说使用while循环的方式更好，不过使用递归的话还能重复利用函数、
+		root = removeMax(root);
+	}
+	
+	public void remove(K key){
+		//删除结点后更新根
+		root = remove(root,key);
+	}
+	
+	/**
+	 * 删除以node为根的子树的key结点
+	 * @param node
+	 * @param key
+	 * @return 返回删除key结点后跟新的根节点
+	 */
+	private Node<K, V> remove(BinarySearchTree<K, V>.Node<K, V> node, K key) {
+		
+		return null;
+	}
+
+	//删除以node结点为根的树的最大结点
+	private Node<K, V> removeMax(BinarySearchTree<K, V>.Node<K, V> node) {
+		if( node.right == null ){
+			count--;
+			return node.left;
+		}
+		node.right = removeMax(node.right);
+		return node;
+	}
+
+	//删除以node结点为根的树的最小结点
+	//删除后该结点的左右子树肯定有变化，把变化后的内容重新回传给该节点
+	private Node<K, V> removeMin(BinarySearchTree<K, V>.Node<K, V> node) {
+		if( node.left == null ){
+			//这里与C++有所不同，因为java对象都是引用，没有指针的概念
+			//所以并不用清空内容，只要堆中对应对象没有引用指向它的话，jvm会自动进行垃圾回收，不用主动操作
+			count--;
+			return node.right;
+		}
+		//递归调用函数
+		/**
+		 * 如果该节点还有做孩子，即该节点不是最小结点
+		 * 再以该节点的做孩子为根节点，删除子树的最小值
+		 * 返回删除后的新节点
+		 */
+		node.left = removeMin(node.left);
+		return node;
+	}
+	
+	private void postOrder(BinarySearchTree<K, V>.Node<K, V> node) {
 		if( node != null ){
 			postOrder(node.left);
 			postOrder(node.right);
@@ -112,7 +209,7 @@ public class BinarySearchTree<K,V>{
 		}
 	}
 
-	private void inOrder(Node<K, V> node) {
+	private void inOrder(BinarySearchTree<K, V>.Node<K, V> node) {
 		if( node != null ){
 			inOrder(node.left);
 			System.out.print(node.key.toString() + " ");
@@ -120,7 +217,7 @@ public class BinarySearchTree<K,V>{
 		}
 	}
 	
-	private void preOrder(Node<K, V> node) {
+	private void preOrder(BinarySearchTree<K, V>.Node<K, V> node) {
 		if( node != null ){
 			System.out.print(node.key.toString() + " ");
 			preOrder(node.left);
@@ -136,14 +233,14 @@ public class BinarySearchTree<K,V>{
 	 * @param key
 	 * @return
 	 */
-	private V search(Node<K, V> node, K key) {
+	private Node<K, V> search(BinarySearchTree<K, V>.Node<K, V> node, K key) {
 		
 		if( node == null){
 			return null;
 		}
 		int r = comparator.compare(node.key, key);
 		if( r == 0){
-			return node.value;
+			return node;
 		}else if( r > 0 ){
 			return search(node.left, key);
 		}else{
@@ -158,7 +255,7 @@ public class BinarySearchTree<K,V>{
 	 * @param key 判断节点的key
 	 * @return
 	 */
-	private boolean contain( Node<K, V> node, K key) {
+	private boolean contain( BinarySearchTree<K, V>.Node<K, V> node, K key) {
 		if( node == null ){
 			return false;
 		}
@@ -181,7 +278,7 @@ public class BinarySearchTree<K,V>{
 	 * @param value 插入的value
 	 * @return 返回更新后的子树根节点
 	 */
-	private Node<K, V> insert( Node<K, V> node, K key, V value ){
+	private Node<K, V> insert( BinarySearchTree<K, V>.Node<K, V> node, K key, V value ){
 		if( node == null ){
 			count ++;
 			return new Node<K, V>(key, value);
