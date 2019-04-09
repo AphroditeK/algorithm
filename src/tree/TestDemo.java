@@ -49,6 +49,8 @@ public class TestDemo {
 		tree.insert(11, "lk11");
 		tree.insert(18, "lk18");
 		tree.insert(92, "lk92");
+		tree.insert(16, "lk16");
+		tree.insert(88, "lk88");
 		System.out.println(".......");
 		System.out.println(tree.contain(11));
 		System.out.println(tree.search(11));
@@ -66,6 +68,10 @@ public class TestDemo {
 		System.out.println("移除最小值");
 		tree.removeMin();
 		tree.inOrder();
+		System.out.println("移除key为9的值");
+		tree.remove(10);
+		tree.inOrder();
+		System.out.println(tree.size());
 	}
 	
 }

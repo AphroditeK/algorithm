@@ -1,6 +1,6 @@
 # algorithm
 * the base algorithm realize in java
-* form the git.com/liuyubobobo/Play-with-Algorithms
+* reference the git.com/liuyubobobo/Play-with-Algorithms which write by C++
 * you can watch the catalogue to konw more about this project 
 # catalogue
 ## 第二章：排序基础

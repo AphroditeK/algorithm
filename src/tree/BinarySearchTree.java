@@ -67,6 +67,38 @@ public class BinarySearchTree<K,V>{
 			this.count--;
 		}
 	}
+	
+	public V maxmun(){
+		return maxmun(root).value;
+	}
+	
+	/**
+	 * 返回以当前结点作根节点的子树的最大结点
+	 * @param node
+	 * @return
+	 */
+	private Node<K, V> maxmun( BinarySearchTree<K, V>.Node<K, V> node ){
+		if( node.right == null ){
+			return node;
+		}
+		return maxmun(node.right);
+	}
+	
+	public V minmun(){
+		return minmun(root).value;
+	}
+	
+	/**
+	 * 返回以当前结点作根节点的子树的最小结点
+	 * @param node
+	 * @return
+	 */
+	private Node<K, V> minmun(BinarySearchTree<K, V>.Node<K, V> node) {
+		if( node.left == null ){
+			return node;
+		}
+		return minmun(node.left);
+	}
 
 	/**
 	 * 插入key-value结点，如果key已存在，则更新已存在结点
@@ -148,8 +180,6 @@ public class BinarySearchTree<K,V>{
 		//这里单从操作来说使用while循环的方式更好，不过使用递归的话还能重复利用函数
 		root = removeMin(root);
 	}
-	
-	
 
 	public void removeMax(){
 		//这里单从操作来说使用while循环的方式更好，不过使用递归的话还能重复利用函数、
@@ -158,18 +188,59 @@ public class BinarySearchTree<K,V>{
 	
 	public void remove(K key){
 		//删除结点后更新根
-		root = remove(root,key);
+		if( contain(key) ){
+			root = remove(root,key);
+		}else{
+			System.out.println("该key结点不存在");
+		}
 	}
 	
 	/**
 	 * 删除以node为根的子树的key结点
 	 * @param node
 	 * @param key
-	 * @return 返回删除key结点后跟新的根节点
+	 * @return 返回删除key结点后更新的根节点
 	 */
 	private Node<K, V> remove(BinarySearchTree<K, V>.Node<K, V> node, K key) {
-		
-		return null;
+		//有以下这几种情况，分开处理
+		int r = comparator.compare(node.key, key);
+		if( r > 0 ){
+			node.left = remove(node.left, key);
+		}else if( r < 0 ){
+			node.right = remove(node.right, key);
+		}else{
+			//r=0,该node结点为要删除的key
+			//这里有三种情况
+			//1.只有左孩子(左右都为空时会进入这种情况，返回null就相当于直接删除了node)
+			if( node.right == null ){
+				//直接让左孩子替代要删除的结点的位置即可
+				count--;
+				return node.left;
+			}
+			//2.只有右孩子
+			if( node.left == null ){
+				//直接让右孩子替代要删除的结点的位置即可
+				count--;
+				return node.right;
+			}else{ 
+				/**
+				 * 同时拥有左右孩子
+				 * 两种解决方案，这里使用第一种
+				 * 1.让右子树中最小值替代该节点位置
+				 * 2.让左子树最大值替代该节点位置
+				 */
+				//这里要注意的是，在C++中，remove是要释放内存的，释放内存后所有指向该节点的指针都将失效
+				//但是java不同，java通过指向null使得内容没有指针指向，然后交由JVM自动回收
+				//java没有指针的概念，但对象全部都是引用类型，即对象变量名存储的都是地址
+				Node<K,V> rightMinmun = minmun(node.right);
+				//有了上面新的指针指向后，即使remove了结点也不会导致指针指向空，因为JVM还不会回收内存
+				node.right = removeMin(node.right);
+				node.key = rightMinmun.key;
+				node.value = rightMinmun.value;
+				return node;
+			}
+		}
+		return node;
 	}
 
 	//删除以node结点为根的树的最大结点
