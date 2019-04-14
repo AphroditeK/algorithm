@@ -67,6 +67,11 @@ public class DenseGraph {
 		this.edgeSize++;
 	}
 	
+	//使用迭代器遍历
+	public void getGraph(){
+		//TODO
+	}
+	
 	private boolean isOverStack(int n){
 		if( n >= 0 && n < nodeSize ){
 			return false;
